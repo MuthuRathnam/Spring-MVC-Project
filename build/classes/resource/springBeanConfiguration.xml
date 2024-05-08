@@ -1,0 +1,65 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="categoryService" class="kart.service.impl.CategoryServiceImpl">
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
+
+	<bean name="categoryDao" class="kart.dao.impl.CategoryDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="productService" class="kart.service.impl.ProductServiceImpl">
+		<property name="productDao" ref="productDao" />
+		<property name="cartDao" ref="cartDao" />
+	</bean>
+
+	<bean name="productDao" class="kart.dao.impl.ProductDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="cartService" class="kart.service.impl.CartServiceImpl">
+		<property name="cartDao" ref="cartDao" />
+		<property name="userDao" ref="userDao" />
+		<property name="productDao" ref="productDao" />
+	</bean>
+
+	<bean name="cartDao" class="kart.dao.impl.CartDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="userService" class="kart.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<bean name="userDao" class="kart.dao.impl.UserDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="orderService" class="kart.service.impl.OrderServiceImpl">
+		<property name="orderDao" ref="orderDao" />
+		<property name="cartDao" ref="cartDao" />
+		<property name="userDao" ref="userDao" />
+		<property name="productDao" ref="productDao" />
+	</bean>
+
+	<bean name="orderDao" class="kart.dao.impl.OrderDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean name="UserValidator" class="kart.validator.UserValidator" />
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/mykart" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+</beans>
